@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { FiCheckSquare } from "react-icons/fi";
+import { CheckSquare } from "phosphor-react";
 
 import { Task } from "../../App";
 
-import './input.scss';
+import './styles.scss';
 
 interface InputProps {
   tasks: Task[];
@@ -39,7 +39,7 @@ export function Input({ tasks, setTasks }: InputProps) {
           data-testid="add-task-button" 
           onClick={handleCreateNewTask}
         >
-          <FiCheckSquare size={16} color="#fff"/>
+          <CheckSquare size={24} color="var(--shapes)" weight='bold' />
         </button>
       </div>
     </section>

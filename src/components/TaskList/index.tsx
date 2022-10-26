@@ -1,7 +1,18 @@
-import { FiTrash } from 'react-icons/fi'
+import { useState, FormEvent } from "react";
+import axios from "axios";
+import * as CheckBox from "@radix-ui/react-checkbox";
+
+import { Trash } from 'phosphor-react'
+import { Check } from "phosphor-react";
+
+import './styles.scss';
+
 import { Task } from '../../App';
 
-import './tasklist.scss'
+interface Game {
+  id: string;
+  title: string;
+}
 
 interface TaskListProps {
   tasks: Task[];
@@ -9,6 +20,39 @@ interface TaskListProps {
 }
 
 export function TaskList({ tasks, setTasks }: TaskListProps) {
+  const [games, setGames] = useState<Game[]>([]);
+  const [weekDays, setWeekDays] = useState<string[]>([]);
+  const [check, setCheck] = useState(false);
+
+  // async function handleCreateAd(event: FormEvent) {
+  //   event.preventDefault();
+
+  //   const formData = new FormData(event.target as HTMLFormElement);
+  //   const data = Object.fromEntries(formData);
+
+  //   if (!data.name) {
+  //     return;
+  //   }
+
+  //   try {
+  //     await axios.post(`http://localhost:3333/games/${data.game}/ads`, {
+  //       name: data.name,
+  //       yearsPlaying: Number(data.yearsPlaying),
+  //       discord: data.discord,
+  //       weekDays: weekDays.map(Number),
+  //       hourStart: data.hourStart,
+  //       hourEnd: data.hourEnd,
+  //       useVoiceChannel: useVoiceChannel
+  //     })
+
+  //     alert('Anúncio criado com sucesso')
+  //   }  catch(err) {
+  //     console.log(err);
+
+  //     alert('Erro ao criar o anúncio');
+  //   }
+  // }
+
   function handleToggleTaskCompletion(id: number) {
     const newState = tasks.map(task => task.id === id ? {
       ...task,
@@ -27,19 +71,22 @@ export function TaskList({ tasks, setTasks }: TaskListProps) {
       <ul>
         {tasks.map(task => (
           <li key={task.id}>
-            <div 
-              className={task.isComplete ? 'completed' : ''} 
-              data-testid="task" 
-            >
-              <label className="checkbox-container">
-                <input 
-                  type="checkbox"
-                  readOnly
-                  checked={task.isComplete}
-                  onClick={() => handleToggleTaskCompletion(task.id)}
-                />
-                <span className="checkmark"></span>
-              </label>
+            <div>
+              <CheckBox.Root 
+                checked={check}
+                onCheckedChange={(checked) => {
+                  if (checked === true) {
+                    setCheck(true);
+                  } else {
+                    setCheck(false);
+                  }
+                }}
+                className='checkbox'
+              >
+                <CheckBox.Indicator>
+                  <Check size={24} color='var(--blue)' weight="bold" />
+                </CheckBox.Indicator>
+              </CheckBox.Root>
               <p>{task.title}</p>
             </div>
             <button 
@@ -47,7 +94,7 @@ export function TaskList({ tasks, setTasks }: TaskListProps) {
               data-testid="remove-task-button" 
               onClick={() => handleRemoveTask(task.id)}
             >
-              <FiTrash size={16}/>
+              <Trash size={24} color='var(--red)' weight="bold" />
             </button>
           </li>
         ))}
