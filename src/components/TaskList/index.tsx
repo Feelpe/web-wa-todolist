@@ -1,5 +1,3 @@
-import { useState, FormEvent } from "react";
-import axios from "axios";
 import * as CheckBox from "@radix-ui/react-checkbox";
 
 import { Trash } from 'phosphor-react'
@@ -7,11 +5,10 @@ import { Check } from "phosphor-react";
 
 import './styles.scss';
 
-import { Task } from '../../App';
-
-interface Game {
-  id: string;
+export interface Task {
+  id: number;
   title: string;
+  isComplete: boolean;
 }
 
 interface TaskListProps {
@@ -20,39 +17,6 @@ interface TaskListProps {
 }
 
 export function TaskList({ tasks, setTasks }: TaskListProps) {
-  const [games, setGames] = useState<Game[]>([]);
-  const [weekDays, setWeekDays] = useState<string[]>([]);
-  const [check, setCheck] = useState(false);
-
-  // async function handleCreateAd(event: FormEvent) {
-  //   event.preventDefault();
-
-  //   const formData = new FormData(event.target as HTMLFormElement);
-  //   const data = Object.fromEntries(formData);
-
-  //   if (!data.name) {
-  //     return;
-  //   }
-
-  //   try {
-  //     await axios.post(`http://localhost:3333/games/${data.game}/ads`, {
-  //       name: data.name,
-  //       yearsPlaying: Number(data.yearsPlaying),
-  //       discord: data.discord,
-  //       weekDays: weekDays.map(Number),
-  //       hourStart: data.hourStart,
-  //       hourEnd: data.hourEnd,
-  //       useVoiceChannel: useVoiceChannel
-  //     })
-
-  //     alert('Anúncio criado com sucesso')
-  //   }  catch(err) {
-  //     console.log(err);
-
-  //     alert('Erro ao criar o anúncio');
-  //   }
-  // }
-
   function handleToggleTaskCompletion(id: number) {
     const newState = tasks.map(task => task.id === id ? {
       ...task,
@@ -73,13 +37,9 @@ export function TaskList({ tasks, setTasks }: TaskListProps) {
           <li key={task.id}>
             <div>
               <CheckBox.Root 
-                checked={check}
-                onCheckedChange={(checked) => {
-                  if (checked === true) {
-                    setCheck(true);
-                  } else {
-                    setCheck(false);
-                  }
+                checked={task.isComplete}
+                onCheckedChange={() => {
+                  handleToggleTaskCompletion(task.id)
                 }}
                 className='checkbox'
               >
