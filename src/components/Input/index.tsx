@@ -5,12 +5,12 @@ import { Task } from "../../App";
 
 import './input.scss';
 
-interface TaskListProps {
+interface InputProps {
   tasks: Task[];
   setTasks: (task: Task[]) => void;
 }
 
-export function Input({ tasks, setTasks }: TaskListProps) {
+export function Input({ tasks, setTasks }: InputProps) {
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
   function handleCreateNewTask() {
