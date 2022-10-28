@@ -1,26 +1,23 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { CheckSquare } from "phosphor-react";
 
-import { Task } from "../../App";
+import { api } from "../../services/api";
 
 import './styles.scss';
 
-interface InputProps {
-  tasks: Task[];
-  setTasks: (task: Task[]) => void;
-}
-
-export function Input({ tasks, setTasks }: InputProps) {
+export function Input() {
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
   function handleCreateNewTask() {
     if (!newTaskTitle) return;
+    
     const newTask = {
-      id: Math.random(),
-      title: newTaskTitle, 
+      task: newTaskTitle, 
       isComplete: false,
     }
-    setTasks([...tasks, newTask]);
+
+    api.post('/Task', newTask)
+    
     setNewTaskTitle('');
   }
   

@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { api } from './services/api';
 
 import { Header } from './components/Header'
 import { TaskList } from './components/TaskList'
@@ -8,20 +10,30 @@ import './styles/global.scss'
 
 export interface Task {
   id: number;
-  title: string;
+  task: string;
   isComplete: boolean;
 }
 
 export function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
+  const getTask = async () => {
+    await api.get('/Task').then((response) => {
+      setTasks(response.data);
+    });
+  }
+
+  useEffect(() => {
+    getTask();
+  }, [])
+
   return (
     <>
       <Header />
       <main className='container'>
-        <Input tasks={tasks} setTasks={setTasks} />
+        <Input />
         
-        <TaskList tasks={tasks} setTasks={setTasks} />
+        <TaskList tasks={tasks} />
       </main>
     </>
   )
