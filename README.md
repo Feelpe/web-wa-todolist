@@ -1,7 +1,7 @@
 # Wa ToDolist Frontend
 
 ### Uma lista de afazeres feita com React e TypeScript.\
-Feita em conjunto com a api [wa-todolist-backend](https://github.com/Feelpe/wa-todolist-backend).
+Feita em conjunto com a api [wa-todolist-backend](<https://github.com/Feelpe/wa-todolist-backend>).
 
 ## Running
 
@@ -12,7 +12,7 @@ npm
 
 ```bash
   #No caso de não ter yarn instalado
-  npm install --global yarn ()
+  npm install --global yarn 
 ```
 
 ```bash
