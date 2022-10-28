@@ -1,7 +1,7 @@
 # Wa ToDolist Frontend
 
 ### Uma lista de afazeres feita com React e TypeScript.\
-Feita em conjunto com a api [wa-todolist-backend](<https://github.com/Feelpe/wa-todolist-backend>).
+Feita em conjunto com a api [wa-todolist-backend](https://github.com/Feelpe/wa-todolist-backend).
 
 ## Running
 
@@ -23,4 +23,4 @@ npm
   $ yarn dev
 ```
 
-Apos iniciar a aplicação <a href="http://127.0.0.1:5173/" target="_blank">Click aqui</a> para ver em seu browser.
+Apos iniciar a aplicação abra este link [http://127.0.0.1:5173/](http://127.0.0.1:5173/) para ver em seu browser.
