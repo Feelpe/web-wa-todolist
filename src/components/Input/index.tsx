@@ -1,23 +1,23 @@
 import { useState, FormEvent } from "react";
 import { CheckSquare } from "phosphor-react";
 
-import { api } from "../../services/api";
+import { useTask } from "../../hooks/useTask";
 
 import './styles.scss';
 
 export function Input() {
+  const { createTask } = useTask();
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
-  function handleCreateNewTask() {
+  async function handleCreateNewTask(event: FormEvent) {
+    event.preventDefault();
     if (!newTaskTitle) return;
-    
-    const newTask = {
-      task: newTaskTitle, 
-      isComplete: false,
-    }
 
-    api.post('/Task', newTask)
-    
+    await createTask({
+      task: newTaskTitle,
+      isCompleted: false,
+    })
+
     setNewTaskTitle('');
   }
   

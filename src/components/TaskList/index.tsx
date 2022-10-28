@@ -1,10 +1,11 @@
 import { useState } from "react";
-import * as CheckBox from "@radix-ui/react-checkbox";
 
+import { useTask } from "../../hooks/useTask";
+import { api } from "../../services/api";
+
+import * as CheckBox from "@radix-ui/react-checkbox";
 import { Trash } from 'phosphor-react'
 import { Check } from "phosphor-react";
-
-import { api } from "../../services/api";
 
 import './styles.scss';
 
@@ -14,44 +15,42 @@ export interface Task {
   isCompleted: boolean;
 }
 
-interface TaskListProps {
-  tasks: Task[];
-}
-
 export interface HandleTask {
   task: Task;
   checked: boolean;
 }
 
-export function TaskList({ tasks }: TaskListProps) {
-  const [isCompleted, setIsCompleted] = useState(Boolean);
+export function TaskList() {
+  const { tasks, updateTask, removeTask } = useTask();
 
-  function handleToggleTaskCompletion({ task, checked }: HandleTask) {
-    api.put(`/Task/${task.id}`, {
+  async function handleToggleTaskStatus({ task, checked }: HandleTask) {
+    await updateTask({
+      id: task.id,
       task: task.task,
-      isCompleted: checked
-    });
+      isCompleted: checked,
+    })
   }
 
-  function handleRemoveTask(id: number) {
-    api.delete(`/Task/${id}`);
+  async function handleRemoveTask(id: number) {
+    await removeTask(id)
+    // api.delete(`/Task/${id}`);
   }
+
+  const reversedTasks = [...tasks].reverse();
 
   return (
     <div className='task-list'>
       <ul>
-        {tasks.map(task => (
+        {reversedTasks.map(task => (
           <li key={task.id}>
             <div>
               <CheckBox.Root 
-                checked={isCompleted}
+                checked={task.isCompleted}
                 onCheckedChange={(checked) => {
                   if (checked === true) {
-                    setIsCompleted(true);
-                    handleToggleTaskCompletion({task, checked});
+                    handleToggleTaskStatus({task, checked});
                   } else {
-                    setIsCompleted(false);
-                    handleToggleTaskCompletion({task, checked:false});
+                    handleToggleTaskStatus({task, checked:false});
                   }
                 }}
                 className='checkbox'
