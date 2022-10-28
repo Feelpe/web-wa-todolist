@@ -23,4 +23,4 @@ npm
   $ yarn dev
 ```
 
-Apos iniciar a aplicação [Click aqui](http://127.0.0.1:5173/) para ver em seu browser.
+Apos iniciar a aplicação <a href="http://127.0.0.1:5173/" target="_blank">Click aqui</a> para ver em seu browser.
