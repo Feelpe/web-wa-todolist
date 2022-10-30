@@ -6,7 +6,7 @@
 ## Running
 
 ### Depende de
-npm
+node.js
 
 ### Em um terminal no diretório projeto, execute os seguintes comandos:
 
