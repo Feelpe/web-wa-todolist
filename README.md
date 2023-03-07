@@ -1,7 +1,7 @@
-# Wa ToDolist
+# Wa ToDolist Web
 
 ### Uma lista de afazeres feita com React e TypeScript.
-### Feita em conjunto com a api [wa-todolist-backend](https://github.com/Feelpe/wa-todolist-backend).
+### Feita em conjunto com a api [server-wa-todolist](https://github.com/Feelpe/server-wa-todolist).
 
 ## Running
 
